@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>50gram</title>
+    <link rel="stylesheet" href="{% static 'main/bootstrap.min.css' %}">
+    <script src="{% static 'main/jquery.min.js' %}"></script>
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+{% block navigation %}
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">50gram</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'wall' %}">Wall <span class="sr-only">(current)</span></a></li>
+        <li><a href="{% url 'new_post' %}">New post</a></li>
+      </ul>
+      {% block auth_action %}
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="{% url 'get_user' user.username %}"> <strong>{{ user.username }}</strong> </a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+      </ul>
+      {% endblock %}
+    </div>
+  </div>
+</nav>
+{% endblock %}
+{% block content %}
+{% endblock %}
+</body>
+</html>

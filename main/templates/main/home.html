@@ -1,0 +1,61 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+{% block head %}
+    <script src="{% static 'main/app.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="col-md-2">
+</div>
+<div class="col-md-8">
+{% for post in posts %}
+    <script>
+        $('#like{{ post.id }}').click(function(e){
+            e.preventDefault();
+            let href = $(this).attr(href);
+            $.post(href, {
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    dataType: 'json',
+                    success: function(response) {
+                        alert(response.message);
+                    }, error: function(rs, e) {
+                        alert(e);
+                    }
+                }
+            });
+{#            $.ajax({#}
+{#                type: "POST",#}
+{#                url: "{% url 'like_action' post.id %}",#}
+{#                data: {csrfmiddlewaretoken: '{{ csrf_token }}'},#}
+{#                dataType: "json",#}
+{#                success: function(response) {#}
+{#                    alert(response.message);#}
+{#                }, error: function(rs, e) {#}
+{#                    alert(e);#}
+{#                }#}
+{#            });#}
+        });
+    </script>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="{% url 'get_user' post.user.username %}">{{ post.user }}</a></div>
+        <div class="panel-body">
+            <p>{{ post.text }}</p>
+            <ul class="nav nav-pills">
+                <li class="active">
+                    <a id = "like{{ post.id }}" href="{% url 'like_action' post.id %}">
+{#                        {% url 'like_action' post.id %}#}
+                        Likes <span class="badge">{{ post.post_likes.count }} </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endfor %}
+</div>
+<div class="col-md-2">
+</div>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <div class="col-md-3">
+
+    </div>
+    <form class="form-horizontal" action="{% url 'new_post_action' %}" method="post">
+    {% csrf_token %}
+  <fieldset>
+    <legend>Post new post</legend>
+    <div class="form-group col-md-6">
+      <label for="textArea" class="col-lg-2 control-label">Post</label>
+      <div class="col-lg-10">
+        <textarea class="form-control" rows="3" name="text"></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+        <button type="reset" class="btn btn-default">Cancel</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </fieldset>
+</form>{% endblock %}
